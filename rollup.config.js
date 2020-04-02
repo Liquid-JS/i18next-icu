@@ -1,10 +1,6 @@
 import babel from 'rollup-plugin-babel';
-import uglify from 'rollup-plugin-uglify';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import { argv } from 'yargs';
-
-const format = argv.format || argv.f || 'iife';
-const compress = argv.uglify;
+import { terser } from 'rollup-plugin-terser';
 
 const babelOptions = {
   exclude: 'node_modules/**',
@@ -12,20 +8,50 @@ const babelOptions = {
   babelrc: false
 };
 
-const dest = {
-  amd: `dist/amd/i18nextICU${compress ? '.min' : ''}.js`,
-  umd: `dist/umd/i18nextICU${compress ? '.min' : ''}.js`,
-  iife: `dist/iife/i18nextICU${compress ? '.min' : ''}.js`
-}[format];
-
-export default {
-  entry: 'src/index.js',
-  format,
-  plugins: [
-    babel(babelOptions),
-    nodeResolve({ jsnext: true })
-  ].concat(compress ? uglify() : []),
-  moduleName: 'i18nextICU',
-  //moduleId: 'i18nextXHRBackend',
-  dest
-};
+export default [
+  {
+    input: 'dist/esm2015/index.js',
+    output: [
+      {
+        format: 'commonjs',
+        dir: 'dist',
+        plugins: [
+          babel(babelOptions),
+        ]
+      },
+      {
+        format: 'umd',
+        file: 'dist/bundle/i18nextICU.js',
+        name: 'i18nextICU',
+        plugins: [
+          babel(babelOptions),
+        ]
+      },
+      {
+        format: 'umd',
+        file: 'dist/bundle/i18nextICU.min.js',
+        name: 'i18nextICU',
+        plugins: [
+          babel(babelOptions),
+          terser()
+        ]
+      }
+    ],
+    plugins: [
+      nodeResolve({ jsnext: true })
+    ]
+  },
+  {
+    input: 'dist/esm2015/node-polyfill.js',
+    output: [
+      {
+        format: 'commonjs',
+        dir: 'dist',
+      }
+    ],
+    plugins: [
+      babel(babelOptions),
+      nodeResolve({ jsnext: true })
+    ]
+  }
+]

@@ -5,11 +5,21 @@
     "noUnusedParameters": true,
     "strictFunctionTypes": true,
     "noImplicitAny": true,
-    "noEmit": true,
+    "noEmit": false,
+    "declaration": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "moduleResolution": "node",
-    "lib": ["ES2015"],
-    "module": "esnext"
+    "lib": [
+      "ES2015"
+    ],
+    "module": "esnext",
+    "target": "ES2015",
+    "outDir": "dist/esm2015",
+    "declarationDir": "dist"
   },
-  "include": ["."]
+  "include": [
+    "src/index.ts",
+    "src/node-polyfill.ts"
+  ]
 }

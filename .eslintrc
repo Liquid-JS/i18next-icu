@@ -1,19 +1,56 @@
-parser: babel-eslint
-extends: airbnb
-
-rules:
-  max-len: [0, 100]
-  no-constant-condition: 0
-  arrow-body-style: [1, "as-needed"]
-  comma-dangle: [2, "never"]
-  padded-blocks: [0, "never"]
-  no-unused-vars: [2, {vars: all, args: none}]
-  react/prop-types:
-    - 0
-    - ignore: #coming from hoc
-      - location
-      - fields
-      - handleSubmit
-
-globals:
-  expect: false
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "max-len": [
+      0,
+      100
+    ],
+    "no-constant-condition": 0,
+    "arrow-body-style": [
+      1,
+      "as-needed"
+    ],
+    "comma-dangle": [
+      2,
+      "never"
+    ],
+    "padded-blocks": [
+      0,
+      "never"
+    ],
+    "no-unused-vars": [
+      2,
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ],
+    "linebreak-style": 0,
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "react/prop-types": [
+      0,
+      {
+        "ignore": [
+          "location",
+          "fields",
+          "handleSubmit"
+        ]
+      }
+    ]
+  },
+  "globals": {
+    "expect": false
+  }
+}
