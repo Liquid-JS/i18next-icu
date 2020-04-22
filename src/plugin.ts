@@ -32,7 +32,7 @@ export interface IcuConfig {
   formats?: IcuFormats;
   bindI18n?: string;
   bindI18nStore?: string;
-  reducer?: <T>(parts: MessageFormatPart<T>[]) => string;
+  reducer?: <T, R = string>(parts: MessageFormatPart<T>[]) => R;
 }
 
 export interface IcuInstance extends I18nFormatModule {
