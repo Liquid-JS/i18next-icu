@@ -1,5 +1,5 @@
 import { i18n, I18nFormatModule } from 'i18next';
-import IntlMessageFormat, { FormatXMLElementFn } from 'intl-messageformat';
+import IntlMessageFormat, { FormatXMLElementFn, MessageFormatPart } from 'intl-messageformat';
 import * as utils from './utils';
 
 declare module 'i18next' {
@@ -32,6 +32,7 @@ export interface IcuConfig {
   formats?: IcuFormats;
   bindI18n?: string;
   bindI18nStore?: string;
+  reducer?: <T>(parts: MessageFormatPart<T>[]) => string;
 }
 
 export interface IcuInstance extends I18nFormatModule {
@@ -107,7 +108,10 @@ class ICU implements IcuInstance {
       if (this.options.memoize && (this.options.memoizeFallback || !info || hadSuccessfulLookup))
         utils.setPath(this.mem, memKey!, fc);
     }
-    return fc.format(options);
+    if (this.options.reducer)
+      return this.options.reducer(fc.formatToParts(options));
+    else
+      return fc.format(options);
   }
 
   clearCache() {

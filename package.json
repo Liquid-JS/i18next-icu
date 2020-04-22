@@ -1,6 +1,6 @@
 {
   "name": "@f-fjs/i18next-icu",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "i18nFormat plugin to use ICU format with i18next",
   "author": "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
   "license": "MIT",
