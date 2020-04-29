@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
+    "preserveConstEnums": true,
     "lib": [
       "ES2015"
     ],
